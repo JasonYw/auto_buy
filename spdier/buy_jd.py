@@ -8,11 +8,14 @@ def get_cookie(browser):
     while True:
         if browser.current_url == "https://www.jd.com/":
             break
+    return browser.get_cookies()
 
 
-def buy_goods(browser, cookie_dict, pid):
+def buy_goods(browser, pid, cookie_dict: dict = None):
     browser.get("https://www.jd.com/")
-    browser.add_cookie(cookie_dict=cookie_dict)
+    if cookie_dict is None:
+        for i in get_cookie(browser):
+            browser.add_cookie(cookie_dict=i)
     browser.get(f"https://item.jd.com/{pid}.html")
     while True:
         selector = browser.find_element_by_link_text("加入购物车")
@@ -31,6 +34,10 @@ def buy_goods(browser, cookie_dict, pid):
             selector.click()
             break
 
+
+if __name__ == "__main__":
+    browser = webdriver.Chrome()
+    buy_goods(browser, 5028827)
 
 # def buy(pid):
 #     with sync_playwright() as p:
@@ -55,4 +62,3 @@ def buy_goods(browser, cookie_dict, pid):
 #         time.sleep(200)
 # # https://plogin.m.jd.com/login/login?appid=300&returnurl=https%3A%2F%2Fwq.jd.com%2Fpassport%2FLoginRedirect%3Fstate%3D1101414989722%26returnurl%3Dhttps%253A%252F%252Fhome.m.jd.com%252FmyJd%252Fnewhome.action%253Fsceneval%253D2%2526ufc%253D%2526&source=wq_passport
 # # https://item.jd.com/5028827.html
-by_selenium(5028827)
