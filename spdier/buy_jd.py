@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from selenium import webdriver
 
 
-def buy_selenium(pid):
+def by_selenium(pid):
     browser = webdriver.Chrome()
     browser.get("https://passport.jd.com/new/login.aspx")
     while True:
