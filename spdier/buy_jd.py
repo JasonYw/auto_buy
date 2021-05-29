@@ -7,8 +7,9 @@ import requests
 
 
 def get_cookie(browser):
-    browser.get("https://passport.jd.com/uc/login?ltype=logout")
     while True:
+        browser.get("https://passport.jd.com/uc/login?ltype=logout")
+        time.sleep(15)
         if "www.jd.com" in browser.current_url:
             return browser.get_cookies()
 
